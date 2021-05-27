@@ -1,0 +1,29 @@
+ul,li {
+    list-style-type: none;
+}
+.main {
+    margin: 20px auto;
+    width: 800px;
+}
+.itemName {
+  margin: 20px 20px;
+}
+.quantity {
+    width: 50px;
+    border: 1px solid gray;
+}
+.form-group {
+  border: 1px solid gray;
+}
+.formItems {
+  padding-top: 30px;
+}
+
+.totalActiveItems {
+  color: green;
+  padding-right: 5px;
+}
+
+.deteleBtn{
+  margin: 10px 10px;
+}

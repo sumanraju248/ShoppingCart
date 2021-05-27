@@ -7,17 +7,23 @@ const port = 3000;
 
 // Where we will keep books
 let items = [{
-    'name': 'item1',
+    'id': 1,
+    'name': 'Item1',
     'price': '20 USD',
+    'quantity': 1,
     'active': true
     },
     {
-    'name': 'item2',
+    'id': 2,
+    'name': 'Item2',
     'price': '21 USD',
+    'quantity': 1,
     'active': true
     },
     {
-    'name': 'item3',
+    'id': 3,
+    'name': 'Item3',
+    'quantity': 1,
     'price': '22 USD',
     'active': false
     }
