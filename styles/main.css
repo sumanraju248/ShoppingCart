@@ -17,8 +17,13 @@ ul,li {
 }
 .formItems {
   padding-top: 30px;
+  margin-bottom: 30px;
+  border: 1px solid gray;
 }
-
+.formItems p {
+  padding-left: 30px;
+  font-weight: bold;
+}
 .totalActiveItems {
   color: green;
   padding-right: 5px;
@@ -26,4 +31,7 @@ ul,li {
 
 .deteleBtn{
   margin: 10px 10px;
+}
+.quantityStyle {
+  text-align: center;
 }

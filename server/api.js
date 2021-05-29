@@ -5,7 +5,6 @@ const cors = require('cors');
 const app = express();
 const port = 3000;
 
-// Where we will keep books
 let items = [{
     'id': 1,
     'name': 'Item1',
@@ -39,4 +38,4 @@ app.get('/items', (req, res) => {
     res.json(items)
 });
 
-app.listen(port, () => console.log(`Hello world app listening on port ${port}!`));
+app.listen(port, () => console.log(`Shopping Cart App listening on port ${port}!`));

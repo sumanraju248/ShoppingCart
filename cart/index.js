@@ -1,7 +1,10 @@
 import React, { Component, useEffect, useState} from 'react';
+import { Button, InputGroup } from 'react-bootstrap';
 import styles from '../styles/main.css';
 import Header from './header';
 import Active from './activeItem';
+import e from 'cors';
+import Quantity from './quantity';
 
 const Cart = () => {
 
@@ -28,15 +31,14 @@ const Cart = () => {
             }
           )
       }, []);
+
     const handleAddQuantity = (e) => {
         // Set the New Quantity for that Item
         const newList = items.filter((item) => {
-            console.log('...........Item', item);
             item.quantity += 1;
             setCount(count + 1);
             return item;
         });
-        console.log('New List......', newList);
         setItems(newList);
     }
 
@@ -52,25 +54,46 @@ const Cart = () => {
             if( e === item.name) {
                 item.quantity +=1;
             }
-            console.log('Updated Item....', item)
         });
-        console.log('........New Items', newItems)
+        setItems(((newItems)=>newItems));
+        setCount(count+1);
     }
 
     const handleRemove = (e) => {
-        const newItems = items.filter((item) => {
-            if(e === item.name) {
+        const updatedItems= items.filter((item) => {
+            if(e.toString() === item.name.toString()) {
                 item.quantity -= 1;
             }
         });
-        setItems(newItems);
+        setItems((updatedItems)=>updatedItems);
+        setCount(count - 1);
     };
 
     const handleDelete = e => {
-        console.log('....This Item should Remove', e);
         const newList = items.filter((item) => item.id !== e);
-        console.log('.......Deleted List....', newList)
-        setItems((newList)=>newList);
+        setItems(newList);
+    };
+
+    const handleSaveForLater = id => {
+        let newList = [];
+        items.filter(item => {
+            if(id === item.id) {
+                item.active = false;
+            }
+            newList.push(item);
+        });
+        setItems(newList);
+    };
+
+    const handleMoveToActive = id => {
+        let newList = [];
+        items.filter((item) => {
+            if(id === item.id) {
+                item.active = true;
+            }
+            newList.push(item);
+        });
+        setItems(newList)
     };
     const handleItems = (items) => {
         return (
@@ -79,7 +102,29 @@ const Cart = () => {
             handleAdd={(e) =>handleAdd(e)} 
             handleRemove = {(e) => handleRemove(e)} 
             handleDelete = {(e) => handleDelete(e)}
+            handleSaveForLater ={(e) => handleSaveForLater(e)}
             />
+        )
+    }
+
+    const handleSaveForLaterItems = items => {
+        return (
+                items.map((item, key) => {
+                    if(item.active === false) {
+                        return (
+                        <div className="col-md-10" key={key}>
+                            <div className={styles.itemQuality}>
+                                <InputGroup>
+                                    <span className={styles.itemName}>{item.name}</span>
+                                    <Button className={styles.deteleBtn} onClick={(e) => handleDelete(e)}>Delete</Button>
+                                    <Button className={styles.deteleBtn} onClick={(e) => handleMoveToActive(item.id)}>Move To Active</Button>
+                                </InputGroup>
+                            </div>  
+                
+                        </div>
+                        )
+                    }
+                })
         )
     }
 
@@ -89,6 +134,10 @@ const Cart = () => {
             <div className={styles.formItems}>
                 <p>Active Items</p>
                 {handleItems(items)}
+            </div>
+            <div className={styles.formItems}>
+                <p>Save For Later Items </p>
+                {handleSaveForLaterItems(items)}
             </div>
         </div>
     )

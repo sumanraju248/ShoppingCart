@@ -5,7 +5,6 @@ import styles from '../styles/main.css';
 
 const Active = (props) => {
     const { items } = props;
-
     const handleAdd = e => {
         props.handleAdd(e);
     }
@@ -13,26 +12,25 @@ const Active = (props) => {
         props.handleRemove(e);
     }
 
-    const handleDelete = e => {
-        props.handleDelete(e);
+    const handleDelete = id => {
+        props.handleDelete(id);
     };
+    const handleSaveForLater = id => {
+        props.handleSaveForLater(id);
+    }
     return (
         items.map((v,k) => {
             const { name, quantity, active, id } = v;
-            console.log('Name and Quantity.....', name, quantity);
-            return active === true ? (
+            return active === true && (
                 <div className="form-group" key={k}>
-                    <Quantity name={name} quantity={quantity} 
-                    handleAdd = {(e) => handleAdd(name)}
+                    <Quantity 
+                    name={name} 
+                    quantity={quantity} 
+                     handleAdd = {(e) => handleAdd(name)}
                      handleRemove = {(e) => handleRemove(name)} 
                      handleDelete = {(e) => handleDelete(id)}
+                     handleSaveForLater = {(e) => handleSaveForLater(id)}
                       />
-                </div>
-            ) : (
-                <div className="form-group" key={k}>
-                    <p>Save For Later Items</p>
-                    <Quantity name={name} quantity={quantity} handleAdd = {(e) => handleAdd(e)} handleRemove = {(e) => handleRemove(name)} />
-                  
                 </div>
             )
         })
